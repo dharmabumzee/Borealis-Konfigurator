@@ -6,7 +6,7 @@ export const Services = ({
   handleChange,
   checkedItems,
 }) => {
-  const renderCheckbox = () => {
+  const renderServices = () => {
     return services.map((service) => (
       <div key={service.id} className="service-checkbox">
         <label key={service.key}>
@@ -23,6 +23,6 @@ export const Services = ({
   };
 
   return (
-    <div className="content-services render-checkbox">{renderCheckbox()}</div>
+    <div className="content-services render-checkbox">{renderServices()}</div>
   );
 };
