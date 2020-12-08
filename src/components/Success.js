@@ -1,4 +1,5 @@
 import React from "react";
+import { successData } from "../data/data";
 
 const Success = ({
   setOpenModal,
@@ -13,44 +14,55 @@ const Success = ({
   setCheckedItems,
   setValidCouponEntered,
   setSubtotal,
-  coupon,
   setCoupon,
-  couponVerified,
   setCouponVerified,
 }) => {
+  // on close reset all state
   const handleClick = () => {
-    setOpenModal(false);
-    setPageNumber(0);
-    setDiscount(0);
-    setVehicle(null);
-    setVehicleChecked(null);
+    resetModal();
+    resetContactForm();
+    resetVehicleAndServices();
+    resetCouponsAndSubtotal();
+  };
+
+  const resetContactForm = () => {
     setName("");
     setEmail("");
     setPhone("");
     setComment("");
+  };
+
+  const resetVehicleAndServices = () => {
+    setVehicle(null);
+    setVehicleChecked(null);
     setCheckedItems([]);
+  };
+
+  const resetCouponsAndSubtotal = () => {
     setValidCouponEntered(false);
+    setDiscount(0);
     setSubtotal(0);
     setCoupon("");
     setCouponVerified(false);
   };
 
+  const resetModal = () => {
+    setOpenModal(false);
+    setPageNumber(0);
+  };
+
+  const { successSubtitle, successMessage, successButton } = successData;
+
   return (
     <div className="ui center aligned basic segment">
       <h3>
-        Vaša prijava je uspješno poslana!{" "}
-        <i
-          className="check circle outline icon"
-          style={{ fontSize: "2rem", color: "#22b946" }}
-        ></i>
+        {successSubtitle}{" "}
+        <i className="check circle outline icon icon-style"></i>
       </h3>
 
-      <p className="success-content">
-        Vaša prijava je uspješno poslana i zaprimljena. Kontaktirati ćemo Vas u
-        najkraćem mogućem roku. Hvala Vam!
-      </p>
+      <p className="success-content">{successMessage}</p>
       <button className="ui button" onClick={handleClick}>
-        Zatvori
+        {successButton}
       </button>
     </div>
   );
