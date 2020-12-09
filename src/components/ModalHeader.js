@@ -1,45 +1,10 @@
 import React from "react";
 
-const ModalHeader = ({
-  pageNumber,
-  setOpenModal,
-  setPageNumber,
-  setValidCouponEntered,
-  setVehicle,
-  setDiscount,
-  setVehicleChecked,
-  setCheckedItems,
-  setName,
-  setEmail,
-  setPhone,
-  setComment,
-  setSubtotal,
-  coupon,
-  setCoupon,
-  couponVerified,
-  setCouponVerified,
-}) => {
-  const handleClick = () => {
-    setSubtotal(0);
-    setOpenModal(false);
-    setPageNumber(0);
-    setValidCouponEntered(false);
-    setDiscount(0);
-    setVehicleChecked("");
-    setCheckedItems([]);
-    setName("");
-    setEmail("");
-    setPhone("");
-    setComment("");
-    setCoupon("");
-    setCouponVerified(false);
-    setVehicle("");
-  };
-
+const ModalHeader = ({ resetAllState, pageNumber }) => {
   const button = (
     <button
       className="right floated compact circular button-custom"
-      onClick={handleClick}
+      onClick={resetAllState}
     >
       <i className="close icon button-custom"></i>
     </button>
