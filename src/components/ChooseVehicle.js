@@ -1,4 +1,5 @@
 import React from "react";
+import { vehicles } from "../data/data";
 
 const ChooseVehicle = ({
   setVehicle,
@@ -6,20 +7,6 @@ const ChooseVehicle = ({
   vehicleChecked,
   setVehicleChecked,
 }) => {
-  const vehicles = [
-    { id: 1, value: "Peugot" },
-    { id: 2, value: "Volkswagen" },
-    { id: 3, value: "Citroen" },
-    { id: 4, value: "Audi" },
-    { id: 5, value: "Bmw" },
-    { id: 6, value: "Seat" },
-    { id: 7, value: "Alfa Romeo" },
-    { id: 8, value: "Kia" },
-    { id: 9, value: "Hyundai" },
-    { id: 10, value: "Honda" },
-    { id: 11, value: "Toyota" },
-  ];
-
   const handleOnChange = (e) => {
     setVehicle(e.target.value);
     setVehicleChecked(e.target.id);
