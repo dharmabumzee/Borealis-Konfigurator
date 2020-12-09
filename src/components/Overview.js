@@ -11,7 +11,6 @@ const Overview = ({
   checkedItems,
   subtotal,
   services,
-  total,
   discountRate,
   validCouponEntered,
 }) => {
@@ -25,7 +24,10 @@ const Overview = ({
             <span style={{ marginRight: "10px" }}>MODEL VOZILA</span>
             {"  "}
 
-            <button className="ui tiny button" onClick={() => setPageNumber(0)}>
+            <button
+              className="ui tiny button overview-button"
+              onClick={() => setPageNumber(0)}
+            >
               UREDI
             </button>
           </h3>
@@ -41,34 +43,40 @@ const Overview = ({
               UREDI
             </button>
           </h3>
-          <p className="overview-services">
+          <div className="overview-services">
             {Object.entries(checkedItems).map(([key, value]) => {
               return value === true ? (
                 <React.Fragment key={key}>
-                  <span>{key}</span>
-                  {services.map((service) =>
+                  <div className="item">{key}</div>
+                  {services.map((service, index) =>
                     key === service.name ? (
-                      <span>{service.price},00 KN</span>
+                      <div className="item" key={index}>
+                        {service.price} KN
+                      </div>
                     ) : null
                   )}
                   {/* <br /> */}
                 </React.Fragment>
               ) : null;
             })}
-          </p>
+          </div>
           <div className="amount">
             {validCouponEntered ? (
               <span>
                 Popust (30%):{" "}
-                <span style={{ marginLeft: "10px", marginRight: "-20px" }}>
-                  -{discountRate.toFixed(2)} KN
+                <span>
+                  {"  "}-{discountRate.toFixed(2)} KN
                 </span>
                 <br />
               </span>
             ) : null}
-            <span style={{ fontWeight: "bold", fontSize: "16px" }}>
+            <span
+              style={{
+                fontWeight: "bold",
+              }}
+            >
               UKUPNO:{" "}
-              <span style={{ marginLeft: "10px", marginRight: "-20px" }}>
+              <span>
                 {validCouponEntered
                   ? (subtotal - discountRate).toFixed(2)
                   : subtotal.toFixed(2)}{" "}
@@ -89,20 +97,16 @@ const Overview = ({
         </div>
       </div>
       <div className="ui vertical segment overview-contact">
-        <div className="item-1">
-          <span>Ime i prezime:</span> <span>{name}</span>
-        </div>
-        <div className="item-2">
-          <span>Email adresa:</span>
-          <span> {email}</span>
-        </div>
-        <div className="item-3">
-          <span>Broj telefona:</span>
-          <span> {phone}</span>
-        </div>
-        <div className="item-4">
-          <span>{`Napomena: ${comment}`}</span>
-        </div>
+        <div className="item item-1">Name</div>
+        <div className="item item-name">{name}</div>
+
+        <div className="item item-2">Email adresa:</div>
+        <div className="item item-email">{email}</div>
+        <div className="item item-3">Broj telefona:</div>
+        <div className="item item-phone"> {phone}</div>
+
+        <div className="item item-4">Napomena: </div>
+        <div className="item item-comment">{comment}</div>
       </div>
     </>
   );
