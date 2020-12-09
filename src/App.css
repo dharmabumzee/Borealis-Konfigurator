@@ -36,7 +36,6 @@ h3 {
   bottom: 75px;
   right: 20px;
   width: 30%;
-  /* align-self: end !important; */
   align-items: end !important;
 }
 
@@ -57,7 +56,6 @@ h3 {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-  /* text-align: center; */
 }
 
 .contact {
@@ -71,59 +69,69 @@ h3 {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
-  /* width: 110%; */
-  /* align-items: center; */
-  /* width: 50%; */
+}
+
+.overview,
+.overview-contact {
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
 }
 
 .overview-contact {
   display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 10px;
-  grid-column-gap: 245px;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  grid-auto-rows: 24px;
+  grid-template-areas:
+    'a a b b c c d d'
+    'e e f f g i i i';
+  grid-column-gap: 3rem;
 }
 
 .item-1 {
-  grid-row: 1 / span 1;
+  grid-area: a;
 }
 
-/* .overview-contact {
-  width: 203% !important;
-} */
+.item-name {
+  grid-area: b;
+}
+
+.item-2 {
+  grid-area: c;
+}
+
+.item-email {
+  grid-area: d;
+  align-items: end;
+  justify-items: end;
+}
+
+.item-3 {
+  grid-area: e;
+}
+
+.item-phone {
+  grid-area: f;
+}
+
+.item-4 {
+  grid-area: g;
+}
+
+.item-comment {
+  grid-area: i;
+  text-align: stretch !important;
+}
 
 .amount {
   text-align: right;
-  margin-right: 33%;
+  margin-top: 1rem;
+  font-size: 16px;
 }
-
-/* .button-custom {
-  margin-right: -10% !important;
-  margin-top: -5px !important;
-}
-
-@media (min-width: 991px) {
-  .button-custom {
-    margin-right: -2% !important;
-    margin-top: -5px !important;
-  }
-}
-
-@media (max-width: 991px) {
-  .button-custom {
-    margin-right: -3% !important;
-  }
-}
-
-@media (max-width: 405px) {
-  .button-custom {
-    margin-right: -10% !important;
-  }
-} */
 
 .button-custom {
   position: absolute;
-  /* top: -16px;
-  right: -21px; */
+
   top: 5px;
   right: 2px;
   font-size: 2rem;
@@ -147,4 +155,27 @@ h3 {
 
 .checkbox {
   margin-right: 10px;
+  cursor: pointer;
+}
+
+.render-checkbox {
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+
+.service-checkbox {
+  margin-bottom: 15px;
+}
+
+.icon-style {
+  font-size: 2rem;
+  color: #22b946;
+}
+
+.item:nth-child(2n + 2) {
+  text-align: end;
+}
+
+.header-title {
+  margin: 0px, 0px, 0x, 20px;
 }
