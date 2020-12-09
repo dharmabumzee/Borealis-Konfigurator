@@ -11,39 +11,77 @@ import Overview from "./components/Overview";
 
 import ModalHeader from "./components/ModalHeader";
 
+import { services } from "./data/data";
+
 import "./App.css";
 
 const App = () => {
-  const services = [
-    { id: 1, name: "Zamjena ulja i filtera", price: "500.00" },
-    { id: 2, name: "Promjena pakni", price: "450.00" },
-    { id: 3, name: "Promjena guma", price: "100.00" },
-    { id: 4, name: "Servis klima uređaja", price: "299.00" },
-    { id: 5, name: "Balansiranje guma", price: "50.00" },
-    { id: 6, name: "Zamjena ulja u kočnicama", price: "229.00" },
-  ];
-
   const [openModal, setOpenModal] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
 
   const [vehicle, setVehicle] = useState(null);
-  const [serviceChoice, setServiceChoice] = useState([]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+
   const [checkedItems, setCheckedItems] = useState([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [subtotal, setSubtotal] = useState(0);
-
   const [vehicleChecked, setVehicleChecked] = useState(0);
+
   const [validCouponEntered, setValidCouponEntered] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [coupon, setCoupon] = useState(0);
   const [couponVerified, setCouponVerified] = useState(false);
 
   let discountRate = (subtotal * 30) / 100;
-  // let total = subtotal - discount;
+
+  const resetAllState = () => {
+    resetModal();
+    resetContactForm();
+    resetVehicleAndServices();
+    resetCouponsAndSubtotal();
+  };
+
+  const resetContactForm = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setComment("");
+  };
+
+  const resetVehicleAndServices = () => {
+    setVehicle(null);
+    setVehicleChecked(null);
+    setCheckedItems([]);
+  };
+
+  const resetCouponsAndSubtotal = () => {
+    setValidCouponEntered(false);
+    setDiscount(0);
+    setSubtotal(0);
+    setCoupon("");
+    setCouponVerified(false);
+  };
+
+  const resetModal = () => {
+    setOpenModal(false);
+    setPageNumber(0);
+  };
+
+  // handling if 'next' button is active
+  const isButtonEnabled = () => {
+    return (
+      (pageNumber === 0 && !vehicle) ||
+      (pageNumber === 1 && Object.keys(checkedItems).length === 0) ||
+      (pageNumber === 1 &&
+        Object.keys(checkedItems).length > 0 &&
+        isButtonAvailable()) ||
+      (pageNumber === 2 && (name === "" || email === "" || phone === ""))
+    );
+  };
 
   const isButtonAvailable = () => {
     let isChecked = [];
@@ -69,12 +107,7 @@ const App = () => {
         <button
           className="ui button"
           onClick={() => setPageNumber(pageNumber + 1)}
-          disabled={
-            (pageNumber === 0 && !vehicle) ||
-            (pageNumber === 1 && Object.keys(checkedItems).length === 0) ||
-            (Object.keys(checkedItems).length > 0 && isButtonAvailable()) ||
-            (pageNumber === 2 && (name === "" || email === "" || phone === ""))
-          }
+          disabled={isButtonEnabled()}
         >
           {pageNumber === 3 ? "Pošalji" : "Dalje"}
         </button>
@@ -134,31 +167,11 @@ const App = () => {
             subtotal={subtotal}
             services={services}
             discountRate={discountRate}
-            // total={total}
             validCouponEntered={validCouponEntered}
           />
         );
       case 4:
-        return (
-          <Success
-            setOpenModal={setOpenModal}
-            setPageNumber={setPageNumber}
-            setDiscount={setDiscount}
-            setVehicle={setVehicle}
-            setVehicleChecked={setVehicleChecked}
-            setName={setName}
-            setEmail={setEmail}
-            setPhone={setPhone}
-            setComment={setComment}
-            setCheckedItems={setCheckedItems}
-            setValidCouponEntered={setValidCouponEntered}
-            setSubtotal={setSubtotal}
-            coupon={coupon}
-            setCoupon={setCoupon}
-            couponVerified={couponVerified}
-            setCouponVerified={setCouponVerified}
-          />
-        );
+        return <Success resetAllState={resetAllState} />;
       default:
         return (
           <ChooseVehicle
@@ -181,25 +194,7 @@ const App = () => {
     return (
       <Modal
         title={
-          <ModalHeader
-            pageNumber={pageNumber}
-            setOpenModal={setOpenModal}
-            setPageNumber={setPageNumber}
-            setValidCouponEntered={setValidCouponEntered}
-            setDiscount={setDiscount}
-            setVehicle={setVehicle}
-            setVehicleChecked={setVehicleChecked}
-            setCheckedItems={setCheckedItems}
-            setName={setName}
-            setEmail={setEmail}
-            setPhone={setPhone}
-            setComment={setComment}
-            setSubtotal={setSubtotal}
-            coupon={coupon}
-            setCoupon={setCoupon}
-            couponVerified={couponVerified}
-            setCouponVerified={setCouponVerified}
-          />
+          <ModalHeader pageNumber={pageNumber} resetAllState={resetAllState} />
         }
         content={renderContent(pageNumber, setPageNumber)}
         actions={renderActions(pageNumber, setPageNumber)}
