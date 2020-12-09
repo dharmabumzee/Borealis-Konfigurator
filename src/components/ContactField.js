@@ -7,6 +7,7 @@ export const ContactField = ({
   required,
   onChange,
   value,
+  name,
 }) => {
   const typeOfInputField =
     tag === "input" ? (
@@ -15,9 +16,15 @@ export const ContactField = ({
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        name={name}
       />
     ) : (
-      <textarea spellCheck="false" value={value} onChange={onChange}>
+      <textarea
+        spellCheck="false"
+        value={value}
+        onChange={onChange}
+        name={name}
+      >
         {placeholder}
       </textarea>
     );
