@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Services } from "./Services";
 
 const ChooseService = ({
@@ -18,7 +18,6 @@ const ChooseService = ({
   setCouponVerified,
 }) => {
   const [couponClicked, setCouponClicked] = useState(false);
-  // const [couponVerified, setCouponVerified] = useState(false);
 
   const Checkbox = ({
     type = "checkbox",
@@ -56,14 +55,6 @@ const ChooseService = ({
     setCouponClicked(!false);
   };
 
-  const handleOnSubmit = (e) => {
-    console.log(e.target.value);
-    if (e.target.value !== "Tokić123") {
-      setValidCouponEntered(true);
-      setDiscount(discountRate);
-    }
-  };
-
   const handleOnChange = (e) => {
     setCoupon(e.target.value);
   };
@@ -76,32 +67,27 @@ const ChooseService = ({
     }
   };
 
-  // const showMessage = (coupon) => {
-  //   return coupon === "Tokic123" ? (
-  //     <p style={{ color: "#50b04d" }}>
-  //       Hvala vam, unijeli ste ispravan kod kupona
-  //     </p>
-  //   ) : (
-  //     <p style={{ color: "#B03060" }}>Niste unijeli važeći kod</p>
-  //   );
-  // };
-
   const couponErrorMessage = () => {
-    return <p style={{ color: "#B03060" }}>Niste unijeli važeći kod</p>;
+    return (
+      <p style={{ color: "#B03060", marginTop: "10px" }}>
+        Niste unijeli važeći kod
+      </p>
+    );
   };
 
   const calculateDiscount = () => {
     return ((subtotal * 30) / 100).toFixed(2);
   };
 
-  console.log("Coupon clicked: ", couponVerified);
-  console.log("Is coupon valid? ", validCouponEntered);
   return (
     <>
       <h3>Korak 2. Odaberite jednu ili više usluga za koje ste</h3>
-      {Object.keys(checkedItems).length === 0
-        ? setIsButtonDisabled(false)
-        : setIsButtonDisabled(true)}
+      {useEffect(() => {
+        Object.keys(checkedItems).length === 0
+          ? setIsButtonDisabled(false)
+          : setIsButtonDisabled(true);
+      }, [checkedItems, setIsButtonDisabled])}
+
       <Services
         services={services}
         Checkbox={Checkbox}
@@ -116,7 +102,6 @@ const ChooseService = ({
                 <input
                   type="text"
                   placeholder="Unesite kod..."
-                  // onSubmit={handleOnSubmit}
                   onChange={handleOnChange}
                 />
                 <button className="ui button" onClick={verifyCoupon}>
