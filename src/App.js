@@ -2,14 +2,13 @@ import React, { useState } from "react";
 
 import Header from "./components/Header";
 import Modal from "./components/Modal";
+import ModalHeader from "./components/ModalHeader";
 
 import ChooseVehicle from "./components/ChooseVehicle";
 import ChooseService from "./components/ChooseService";
 import Contact from "./components/Contact";
 import Success from "./components/Success";
 import Overview from "./components/Overview";
-
-import ModalHeader from "./components/ModalHeader";
 
 import { services } from "./data/data";
 
@@ -168,6 +167,7 @@ const App = () => {
             services={services}
             discountRate={discountRate}
             validCouponEntered={validCouponEntered}
+            pageNumber={pageNumber}
           />
         );
       case 4:

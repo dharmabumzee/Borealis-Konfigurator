@@ -69,6 +69,7 @@ h3 {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
+  font-size: 15px;
 }
 
 .overview,
@@ -174,8 +175,4 @@ h3 {
 
 .item:nth-child(2n + 2) {
   text-align: end;
-}
-
-.header-title {
-  margin: 0px, 0px, 0x, 20px;
 }

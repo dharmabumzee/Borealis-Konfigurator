@@ -61,3 +61,18 @@ export const successData = {
     "Vaša prijava je uspješno poslana i zaprimljena. Kontaktirati ćemo Vas u najkraćem mogućem roku. Hvala Vam!",
   successButton: "Zatvori",
 };
+
+export const overviewData = [
+  {
+    id: 0,
+    title: "MODEL VOZILA",
+  },
+  {
+    id: 1,
+    title: "ODABRANE USLUGE",
+  },
+  {
+    id: 2,
+    title: "KONTAKT PODACI",
+  },
+];
