@@ -79,6 +79,46 @@ const ChooseService = ({
     return ((subtotal * 30) / 100).toFixed(2);
   };
 
+  const handleCouponClicked = () => {
+    return (
+      <>
+        <div className="ui mini action input">
+          <input
+            type="text"
+            placeholder="Unesite kod..."
+            onChange={handleOnChange}
+          />
+          <button className="ui button" onClick={verifyCoupon}>
+            Primjeni
+          </button>
+        </div>
+        {couponVerified && !validCouponEntered ? couponErrorMessage() : null}
+      </>
+    );
+  };
+
+  const handleCouponVerified = () => {
+    return (
+      <div style={{ marginTop: "0px", lineHeight: "2rem" }}>
+        <p style={{ color: "#50b04d" }}>
+          Hvala vam, unijeli ste ispravan kod kupona
+        </p>
+
+        <div style={{ color: "#000000", fontSize: "16px" }}>
+          OSNOVICA:{" "}
+          <span style={{ marginLeft: "10px" }}>{subtotal.toFixed(2)} kn</span>
+          <br />
+          <span style={{ fontSize: "18px", marginLeft: "45px" }}>
+            Popust (30%):{" "}
+            <span style={{ marginLeft: "10px" }}>
+              -{calculateDiscount()} kn
+            </span>
+          </span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <h3>Korak 2. Odaberite jednu ili više usluga za koje ste</h3>
@@ -97,46 +137,16 @@ const ChooseService = ({
       <div className="total" style={{ marginTop: "50px" }}>
         <span className="coupon" onClick={handleClick}>
           {couponClicked && !validCouponEntered ? (
-            <>
-              <div className="ui mini action input">
-                <input
-                  type="text"
-                  placeholder="Unesite kod..."
-                  onChange={handleOnChange}
-                />
-                <button className="ui button" onClick={verifyCoupon}>
-                  Primjeni
-                </button>
-              </div>
-              {couponVerified && !validCouponEntered
-                ? couponErrorMessage()
-                : null}
-            </>
+            handleCouponClicked()
           ) : validCouponEntered ? (
-            <div style={{ marginTop: "0px" }}>
-              <p style={{ color: "#50b04d" }}>
-                Hvala vam, unijeli ste ispravan kod kupona
-              </p>
-
-              <div style={{ color: "#000000", fontSize: "15px" }}>
-                OSNOVICA:{" "}
-                <span style={{ marginLeft: "50px" }}>
-                  {subtotal.toFixed(2)} kn
-                </span>
-                <br />
-                Popust (30%):{" "}
-                <span style={{ marginLeft: "45px" }}>
-                  {" "}
-                  -{calculateDiscount()} kn
-                </span>
-              </div>
-            </div>
+            handleCouponVerified()
           ) : (
             <span
               style={{
                 textDecoration: "underline",
                 fontSize: "14px",
                 cursor: "pointer",
+                marginRight: "125px",
               }}
             >
               Imam kupon
@@ -146,7 +156,7 @@ const ChooseService = ({
 
         <br />
 
-        <span>
+        <span style={{ fontSize: "24px", fontWeight: "bold" }}>
           UKUPNO:{" "}
           {validCouponEntered
             ? (subtotal - calculateDiscount()).toFixed(2)

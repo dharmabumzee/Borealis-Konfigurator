@@ -56,6 +56,7 @@ const Overview = ({
         <span
           style={{
             fontWeight: "bold",
+            textAlign: "stretch",
           }}
         >
           UKUPNO:{" "}

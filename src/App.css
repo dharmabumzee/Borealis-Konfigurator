@@ -30,13 +30,16 @@ h3 {
 }
 
 .total {
-  font-size: 18px;
   display: grid;
-  position: absolute;
+  grid-template-columns: repeat(2, minmax(auto-fit, 1fr));
+  /* position: absolute; */
   bottom: 75px;
   right: 20px;
-  width: 30%;
+
   align-items: end !important;
+  text-align: right;
+  margin-top: 1rem;
+  /* font-size: 16px; */
 }
 
 .coupon {
@@ -56,12 +59,6 @@ h3 {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-}
-
-.contact {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: masonry;
 }
 
 .overview,
@@ -132,7 +129,6 @@ h3 {
 
 .button-custom {
   position: absolute;
-
   top: 5px;
   right: 2px;
   font-size: 2rem;
@@ -161,7 +157,7 @@ h3 {
 
 .render-checkbox {
   margin-top: 50px;
-  margin-bottom: 150px;
+  /* margin-bottom: 150px; */
 }
 
 .service-checkbox {
