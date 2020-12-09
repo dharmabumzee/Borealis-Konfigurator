@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ContactField from "./ContactField";
+import _ from "lodash";
+import { fields } from "../data/data";
 
 const Contact = ({
   name,
@@ -11,84 +13,62 @@ const Contact = ({
   setPhone,
   setComment,
 }) => {
-  const fields = [
-    {
-      title: "Ime i prezime",
-      placeholder: "Ime i prezime",
-      tag: "input",
-      required: "required",
-    },
-    {
-      title: "E-mail",
-      placeholder: "Email adresa",
-      tag: "input",
-      required: "required",
-    },
-    {
-      title: "Telefon",
-      placeholder: "Broj telefona",
-      tag: "input",
-      required: "required",
-    },
-    { title: "Napomena (opcionalno)", placeholder: "", tag: "textarea" },
-  ];
+  const [changes, setChanges] = useState({
+    name,
+    email,
+    phone,
+    comment,
+  });
 
-  const onNameChange = (e) => {
-    setName(e.target.value);
+  const handleOnChange = (e) => {
+    const newChanges = _.cloneDeep(changes);
+
+    const {
+      target: { name, value },
+    } = e;
+
+    newChanges[name] = value;
+    setChanges(newChanges);
+    setName(newChanges.name);
+    setEmail(newChanges.email);
+    setPhone(newChanges.phone);
+    setComment(newChanges.comment);
   };
 
-  const onEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onPhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const onCommentChange = (e) => {
-    setComment(e.target.value);
+  const handleValue = (id) => {
+    switch (id) {
+      case 1:
+        return name;
+      case 2:
+        return email;
+      case 3:
+        return phone;
+      case 4:
+        return comment;
+      default:
+        return;
+    }
   };
 
   return (
     <div className="contact">
       <h3>Korak 3. Vaši kontakt podaci</h3>
       <div className="ui form">
-        {/* {fields.map(({ title, placeholder, tag, required }) => {
-          return ( */}
-
-        <ContactField
-          title={"Ime i prezime"}
-          placeholder={"Ime i prezime"}
-          tag={"input"}
-          required
-          onChange={onNameChange}
-          value={name}
-        />
-        <ContactField
-          title={"E-mail"}
-          placeholder={"Email adresa"}
-          tag={"input"}
-          required
-          onChange={onEmailChange}
-          value={email}
-        />
-        <ContactField
-          title={"Telefon"}
-          placeholder={"Broj telefona"}
-          tag={"input"}
-          required
-          onChange={onPhoneChange}
-          value={phone}
-        />
-        <ContactField
-          title={"Napomena (opcionalno)"}
-          placeholder={""}
-          tag={"textarea"}
-          onChange={onCommentChange}
-          value={comment}
-        />
-        {/* );
-        })} */}
+        {fields.map(({ id, title, placeholder, tag, required, type }) => {
+          return (
+            <ContactField
+              id={id}
+              title={title}
+              placeholder={placeholder}
+              tag={tag}
+              required={required}
+              key={id}
+              name={type}
+              onChange={handleOnChange}
+              value={handleValue(id)}
+            />
+          );
+        })}
       </div>
     </div>
   );
