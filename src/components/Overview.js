@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { OverviewText } from "./OverviewText";
 import { overviewData } from "../data/data";
+import OverviewContact from "./OverviewContact";
 
 const Overview = ({
   setPageNumber,
@@ -107,18 +108,12 @@ const Overview = ({
           return <OverviewBox id={id} title={title} key={id} />;
         })}
       </div>
-      <div className="ui vertical segment overview-contact">
-        <div className="item item-1">Name</div>
-        <div className="item item-name">{name}</div>
-
-        <div className="item item-2">Email adresa:</div>
-        <div className="item item-email">{email}</div>
-        <div className="item item-3">Broj telefona:</div>
-        <div className="item item-phone"> {phone}</div>
-
-        <div className="item item-4">Napomena: </div>
-        <div className="item item-comment">{comment}</div>
-      </div>
+      <OverviewContact
+        name={name}
+        email={email}
+        phone={phone}
+        comment={comment}
+      />
     </>
   );
 };
