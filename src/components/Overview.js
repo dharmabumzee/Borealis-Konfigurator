@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { OverviewText } from "./OverviewText";
 import { overviewData } from "../data/data";
 import OverviewContact from "./OverviewContact";
